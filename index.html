@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Weather Information &#9925;</h2>
+    <form id="weatherForm">
+        <label for="city">Enter City:</label>
+        <input type="text" id="city" name="city">
+        <button type="submit">Get Weather</button>
+    </form>
+
+    <div id="weatherResult"></div>
+
+	
+    <script>
+        document.getElementById('weatherForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const city = document.getElementById('city').value;
+            fetch(`http://localhost:8082/api/weather/${city}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('weatherResult').innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById('weatherResult').innerHTML = "Error fetching weather data.";
+                });
+        });
+    </script>
+</body>
+</html>
